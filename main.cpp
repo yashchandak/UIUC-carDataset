@@ -31,7 +31,8 @@ int main( )
         return -1;
     }
 
-    //-- 2. Read the input image
+    //-- 2. Read the input image (modify the address to load from your system)
+
 
     string address = "D:/ToDo/research_santa_cruz/car_classifier/CarData/TestImages_Scale/test-";
     string filename, cas, converted;
@@ -39,9 +40,9 @@ int main( )
     string to = "D:/ToDo/research_santa_cruz/car_classifier/upload2/2_";
 
     string correct = "D:/ToDo/research_santa_cruz/car_classifier/CarData/LabeledImages/result-";
-    namedWindow("Truth",2);
+    //namedWindow("Truth",2);
 
-    for(int i =10; i<108; i++)
+    for(int i =0; i<108; i++)
     {
         cout<<i<<endl;
         ostringstream ss;
@@ -49,7 +50,7 @@ int main( )
         //cout<<"address : "<<address<<endl;
         filename = address + ss.str() + ".pgm";
         correctImage = correct + ss.str() + ".pgm";
-        converted = to + ss.str() + ".jpg";
+       // converted = to + ss.str() + ".jpg";
 
 
         //image_truth = imread(correctImage,1);
@@ -84,10 +85,6 @@ void detectAndDisplay( Mat image1, int index=0 )
 {
 
     std::vector<Rect> cars;
-    /* Mat frame_gray;
-
-    cvtColor( frame, frame_gray, CV_BGR2GRAY );
-    equalizeHist( frame_gray, frame_gray );*/
 
     car_cascade.detectMultiScale( image1, cars, 1.1, 3, 0|CV_HAAR_SCALE_IMAGE, Size(25, 10), Size(400,100) );
     cout<<"cars detected: "<<cars.size()<<endl;
@@ -97,9 +94,14 @@ void detectAndDisplay( Mat image1, int index=0 )
     {
         //out<<"{\"taskID\":\"2\",\"taskCount\":"<<index<<",\"cost\":\"1.7\",\"blocks\"";
         rectangle(image1, cars[i].tl(),cars[i].br(), Scalar(255), 3, 8, 0);
-        //out<<"["<<cars[i].y<<","<<cars[i].x<<","<<cars[i].width<<","<<cars[i].height<<"],\"type\":\"jpg\"}\n";
-        //out<<"["<<cars[i].y<<","<<cars[i].x<<","<<cars[i].width<<","<<cars[i].height<<"]";//,\"type\":\"jpg\"}\n";
-        out<<" ("<<cars[i].y<<","<<cars[i].x<<","<<cars[i].width<<")";//<<","<<cars[i].height<<"]";//,\"type\":\"jpg\"}\n";
+        /* printing results in format for our HPU
+        *out<<"["<<cars[i].y<<","<<cars[i].x<<","<<cars[i].width<<","<<cars[i].height<<"],\"type\":\"jpg\"}\n";
+        *out<<"["<<cars[i].y<<","<<cars[i].x<<","<<cars[i].width<<","<<cars[i].height<<"]";//,\"type\":\"jpg\"}\n";
+        */
+        
+        out<<" ("<<cars[i].y<<","<<cars[i].x<<","<<cars[i].width<<")";//for multi Scale
+        //out<<" ("<<cars[i].y<<","<<cars[i].x<<")";//for fixed Scale
+        
         //if(i!=(cars.size()-1))
         //    out<<",";
 
