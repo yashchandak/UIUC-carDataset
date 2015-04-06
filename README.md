@@ -1,5 +1,5 @@
 # UIUC-carDataset
-It contains the code, Classifier model used for detection, and the bounding box results for both multiScale and fixed Scale test images Developed on c++ with OpenCV Library.
+It contains the C++ source code and the bounding box results for both multiScale and fixed Scale test images. It requires OpenCV Library to be installed. The classifiers are also provided in case anyone wants to replicate/improvise/modify the results.
 
 The code is not clean or commented as of now, please feel to ask any questions regarding it.
 
